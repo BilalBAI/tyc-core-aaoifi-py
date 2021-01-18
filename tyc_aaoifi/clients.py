@@ -4,9 +4,6 @@ import json
 import pandas as pd
 from pandas import DataFrame
 
-
-
-
 class BaseClient:
     def __init__(self):
         f = open('config.json') 
