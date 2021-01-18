@@ -13,7 +13,6 @@ class BAScreen:
     
     def screen(self, secu_code, end_date, tolerance: int):
         re=self.hs_cloud_client.get(secu_code, end_date)
-        print(re)
         if re.empty:
             print('No Data')
             return 0
@@ -28,6 +27,7 @@ class BAScreen:
         else:
             non_compliant_perc=0
         print()
+        print('---------------------------------------------------------------')
         if non_compliant_perc > tolerance:
             print(f"{re['secu_abbr'].values[0]} is Shariah Non-Compliant")
         else:
@@ -38,6 +38,7 @@ class BAScreen:
         print()
         print('Details')
         print(re)
+        print('---------------------------------------------------------------')
         print()
 
     # def run(self):
