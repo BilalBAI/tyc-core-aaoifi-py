@@ -4,32 +4,32 @@ import json
 import pandas as pd
 from pandas import DataFrame
 
-class HscloudClient:
+
+
+
+class BaseClient:
     def __init__(self):
         f = open('config.json') 
         self.config = config = json.load(f)
-        self.getToken(config['app_key'],config['app_secrect'])
+        self.keywords = {}
+        self.keywords.update({i: 'questionable' for i in config['questionable_keywords']})
+        self.keywords.update({i: 'non-compliant' for i in config['non_compliant_keywords']})
+        self.keywords.update({i: 'not-applicable' for i in config['not_applicable']})
+
+
+    def post_db(self):
+        pass
+    def post_json(self):
+        pass
+
+
+class HscloudClient(BaseClient):
+    def __init__(self):
+        super().__init__()
+        self.get_token(self.config['app_key'],self.config['app_secrect'])
         self.missing=[]
 
-    def run(self):
-        re_list=[]
-        url = self.config['url']
-        for i in self.config['universe']:
-            print(i)
-            params = f"secu_code={i}&classification=50"
-            re=DataFrame(self.postOpenApi(url, params)).fillna(0)
-            print(re)
-            if re.empty:
-                self.missing.append(i)
-                continue
-            for j in ['subsection_income_f_year','subsection_income_t_period']:
-                re[j]=re[j].astype(float)
-                re[f'{j} %']=re[j]/re.loc[re['items_name']=='合计',j].values[0]
-            re_list.append(re)
-        df=pd.concat(re_list,ignore_index=True)
-        return df
-
-    def getToken(self, app_key, app_secrect):
+    def get_token(self, app_key, app_secrect):
         bytesString = (app_key + ':' + app_secrect).encode(encoding="utf-8")
         url = 'https://sandbox.hscloud.cn/oauth2/oauth2/token'
         header = {
@@ -48,17 +48,15 @@ class HscloudClient:
             print("Pub Bearer Failed")
             exit
 
-    def postOpenApi(self, url, params):
+    def get(self, secu_code: str, end_date: str = None):
+        url=self.config['url']
+        params = f"secu_code={secu_code}&classification=50"
+        if end_date:
+            params += f"&end_date={end_date}"
         header = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Bearer ' + self.token
         }
         r = requests.post(url, data=params, headers=header)
-        # print("result = " + str(r.json().get('data')))
-        return r.json().get('data')
-
-
-if __name__ == '__main__':
-    c=HscloudClient()
-    df=c.run()
+        return DataFrame(r.json().get('data')).fillna(0)
 

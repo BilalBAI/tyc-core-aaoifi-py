@@ -53,5 +53,19 @@
     ],
     "app_key": "b80f87a3-e97a-4f41-bd48-5db7039703e4",
     "app_secrect": "c88cd4d7-1c6b-44d9-8041-293b38efb7b3",
-    "url":"https://sandbox.hscloud.cn/gildatahk/v1/financialnotes/hk_mainincomestru"
+    "url": "https://sandbox.hscloud.cn/gildatahk/v1/financialnotes/hk_mainincomestru",
+    "non_compliant_keywords": [
+        "网络广告",
+        "财富管理及个人银行业务",
+        "商业银行业务",
+        "环球银行及资本市场业务",
+        "澳门威尼斯人",
+        "金沙城中心",
+        "澳门巴黎人",
+        "澳门百利宫",
+        "澳门金沙",
+        "分部间收益"
+    ],
+    "questionable_keywords": ["其它","未分配"],
+    "not_applicable": ["合计","小计"]
 }
