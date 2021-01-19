@@ -8,6 +8,7 @@ TYC-AAOIFI Shariah Compliance Model for Equity Investment
 Run the following to create the environment:
 
 ```bash
+cd <package path>
 conda create -n tyc_aaoifi python=3.8
 conda activate tyc_aaoifi
 python -m pip install -r requirements.txt
