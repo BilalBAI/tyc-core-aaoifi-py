@@ -1,6 +1,9 @@
 # tyc-core-aaoifi-py
 TYC-AAOIFI Shariah Compliance Model for Equity Investment
 
+# Data Sources
+[恒生云-港股主营收入构成]<https://www.hs.net/wiki/api/504_gildatahk_v1_financialnotes_hk_mainincomestru.html>
+
 # Installation
 Run the following to create the environment:
 
