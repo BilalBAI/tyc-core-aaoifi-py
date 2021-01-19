@@ -22,13 +22,16 @@ class BAScreen:
         re['shariah_compliance'] = re['items_name'].map(self.hs_cloud_client.keywords).fillna('compliant')
         summary=re[['shariah_compliance','subsection_income_t_period',  'subsection_income_t_period/total']].groupby(by='shariah_compliance',as_index=False).sum()
         summary=summary[summary['shariah_compliance']!='not-applicable']
-        if 'non-compliant' in summary['shariah_compliance']:
-            non_compliant_perc=summary.loc[summary['shariah_compliance']=='non-compliant','subsection_income_t_period/total'].values[0]
+        if 'non-compliant' in summary['shariah_compliance'].values:
+            non_compliant_questionable_perc=summary.loc[summary['shariah_compliance']=='non-compliant','subsection_income_t_period/total'].values[0]
         else:
-            non_compliant_perc=0
+            non_compliant_questionable_perc=0
+        if 'questionable' in summary['shariah_compliance'].values:
+            non_compliant_questionable_perc=non_compliant_questionable_perc+summary.loc[summary['shariah_compliance']=='questionable','subsection_income_t_period/total'].values[0]
         print()
+        print(non_compliant_questionable_perc)
         print('---------------------------------------------------------------')
-        if non_compliant_perc > tolerance:
+        if non_compliant_questionable_perc > tolerance:
             print(f"{re['secu_abbr'].values[0]} is Shariah Non-Compliant")
         else:
             print(f"{re['secu_abbr'].values[0]} is Shariah Compliant")
