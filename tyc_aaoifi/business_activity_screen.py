@@ -45,20 +45,19 @@ class BAScreen:
         print('---------------------------------------------------------------')
         print()
 
-    # def run(self):
-    #     re_list=[]
-    #     for i in self.config['universe']:
-    #         print(i)
-    #         params = f"secu_code={i}&classification=50"
-    #         re=DataFrame(self.postOpenApi(url, params)).fillna(0)
-    #         print(re)
-    #         if re.empty:
-    #             self.missing.append(i)
-    #             continue
-    #         for j in ['subsection_income_f_year','subsection_income_t_period']:
-    #             re[j]=re[j].astype(float)
-    #             re[f'{j} %']=re[j]/re.loc[re['items_name']=='合计',j].values[0]
-    #         re_list.append(re)
-    #     df=pd.concat(re_list,ignore_index=True)
-    #     return df
+    def run_uni(self, universe, end_date):
+        re_list=[]
+        for i in self.hs_cloud_client.config[universe]:
+            try:
+                print(i)
+                re=self.hs_cloud_client.get(i, end_date)
+                print(re)
+                if re.empty:
+                    continue
+                re=re[['classification', 'currency_unit', 'end_date', 'items_name', 'number', 'period_mark', 'secu_abbr', 'secu_code', 'subsection_income_t_period']]
+                re_list.append(re)
+            except:
+                continue
+        df=pd.concat(re_list,ignore_index=True)
+        return df
     

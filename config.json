@@ -1,5 +1,5 @@
 {
-    "universe": [
+    "hsi_universe": [
         "00001",
         "00101",
         "01038",
@@ -51,9 +51,10 @@
         "00941",
         "09988"
     ],
-    "app_key": "b80f87a3-e97a-4f41-bd48-5db7039703e4",
-    "app_secrect": "c88cd4d7-1c6b-44d9-8041-293b38efb7b3",
-    "url": "https://sandbox.hscloud.cn/gildatahk/v1/financialnotes/hk_mainincomestru",
+    "app_key": "a00ad136-9358-4f1a-bf56-3f60a94f5f51",
+    "app_secrect": "11905dd4-ef7b-46aa-b4fe-7cad10c1db4b",
+    "url_h": "https://sandbox.hscloud.cn/gildatahk/v1/financialnotes/hk_mainincomestru",
+    "url_a": "https://sandbox.hscloud.cn/gildataastock/v1/financialnotes/as_mainincomestru_latest",
     "non_compliant_keywords": [
         "财富管理及个人银行业务",
         "商业银行业务",
