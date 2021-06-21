@@ -56,8 +56,6 @@ class JsonGenerator:
     def run_excel(self):
         results=[]
         for i in self.df_master.index:
-            if i==500:
-                break
             dict_summary=dict(self.df_master.loc[i])
             try:
                 results.append(self._run(dict_summary))
